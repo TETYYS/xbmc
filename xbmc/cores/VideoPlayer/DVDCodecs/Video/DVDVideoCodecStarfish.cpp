@@ -186,6 +186,21 @@ bool CDVDVideoCodecStarfish::OpenInternal(CDVDStreamInfo& hints, CDVDCodecOption
         {
           m_bitstream.reset();
         }
+
+        if (m_bitstream)
+        {
+          m_bitstream->SetRemoveHdr10Plus(true);
+
+          // Only set for profile 7, container hint allows to skip parsing unnecessarily
+          if (m_hints.dovi.dv_profile == 7)
+          {
+            CLog::Log(LOGDEBUG,
+                      "CDVDVideoCodecStarfish::Open Dolby Vision compatibility mode "
+                      "enabled: true");
+
+            m_bitstream->SetConvertDovi(true);
+          }
+        }
       }
 
       break;

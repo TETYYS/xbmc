@@ -53,6 +53,12 @@ ifeq ($(OS),android)
   NATIVE += rustup cargo-c
 endif
 
+ifeq ($(OS),linux)
+  ifeq ($(TARGET_PLATFORM),webos)
+    NATIVE += rustup cargo-c
+  endif
+endif
+
 .PHONY: $(NATIVE) native download $(DOWNLOAD_TARGETS)
 
 all: native
